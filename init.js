@@ -1,21 +1,27 @@
 var fs = require('fs');
 var cluster = require('cluster');
 
+var redis = require('redis');
+
 ////simplewallet --wallet-file=wallet.bin --pass=test --rpc-bind-port=8082
+
+
+//./simplewallet --wallet-file=wallet.bin --pass=test --rpc-bind-port=8342 --daemon-port=32837
+
 
 if (cluster.isWorker){
     switch(process.env.workerType){
         case 'pool':
-            require('./pool.js');
+            require('./lib/pool.js');
             break;
         case 'paymentProcessor':
-            require('./paymentProcessor.js');
+            require('./lib/paymentProcessor.js');
             break;
         case 'api':
-            require('./api.js');
+            require('./lib/api.js');
             break;
         case 'cli':
-            require('./cli.js');
+            require('./lib/cli.js');
             break
     }
     return;
@@ -23,7 +29,7 @@ if (cluster.isWorker){
 
 var config = JSON.parse(fs.readFileSync('config.json'));
 
-var logger = require('./logUtil.js')({
+var logger = require('./lib/logUtil.js')({
     logLevel: config.logLevel,
     logColors: config.logColors
 });
@@ -34,23 +40,65 @@ var logSubsystem = null;
 var os = require('os');
 
 (function init(){
-    spawnPoolWorkers();
-    spawnPaymentProcessor();
-    spawnApi();
-    spawnCli();
+    checkRedisVersion(function(){
+        spawnPoolWorkers();
+        spawnPaymentProcessor();
+        spawnApi();
+        spawnCli();
+    });
 })();
 
 
+function checkRedisVersion(callback){
+    var redisClient = redis.createClient(config.redis.port, config.redis.host);
+    redisClient.info(function(error, response){
+        if (error){
+            logger.error(logSystem, logComponent, logSubCat, 'Redis version check failed');
+            return;
+        }
+        var parts = response.split('\r\n');
+        var version;
+        var versionString;
+        for (var i = 0; i < parts.length; i++){
+            if (parts[i].indexOf(':') !== -1){
+                var valParts = parts[i].split(':');
+                if (valParts[0] === 'redis_version'){
+                    versionString = valParts[1];
+                    version = parseFloat(versionString);
+                    break;
+                }
+            }
+        }
+        if (!version){
+            logger.error(logSystem, logSubsystem, null, 'Could not detect redis version - but be super old or broken');
+            return;
+        }
+        else if (version < 2.6){
+            logger.error(logSystem, logSubsystem, null, "You're using redis version " + versionString + " the minimum required version is 2.6. Follow the damn usage instructions...");
+            return;
+        }
+        callback();
+    });
+}
+
 function spawnPoolWorkers(){
 
+    if (!config.poolServer || !config.poolServer.enabled || !config.poolServer.ports || config.poolServer.ports.length === 0) return;
+
+    if (config.poolServer.ports.filter(function(portData){return portData.protocol === 'tcp' || portData.protocol === 'http'}).length === 0){
+        logger.error(logSystem, logSubsystem, null, 'Pool server enabled but not tcp or http ports specified');
+        return;
+    }
+
+
     var numForks = (function(){
-        if (!config.clusterForks)
+        if (!config.poolServer.clusterForks)
             return 1;
-        if (config.clusterForks === 'auto')
+        if (config.poolServer.clusterForks === 'auto')
             return os.cpus().length;
-        if (isNaN(config.clusterForks))
+        if (isNaN(config.poolServer.clusterForks))
             return 1;
-        return config.clusterForks;
+        return config.poolServer.clusterForks;
     })();
 
     var poolWorkers = {};
@@ -71,7 +119,12 @@ function spawnPoolWorkers(){
             }, 2000);
         }).on('message', function(msg){
             switch(msg.type){
-                case 'none':
+                case 'banIP':
+                    Object.keys(cluster.workers).forEach(function(id) {
+                        if (cluster.workers[id].type === 'pool'){
+                            cluster.workers[id].send({type: 'banIP', ip: msg.ip});
+                        }
+                    });
                     break;
             }
         });
@@ -89,6 +142,9 @@ function spawnPoolWorkers(){
 }
 
 function spawnPaymentProcessor(){
+
+    if (!config.payments || !config.payments.enabled) return;
+
     var worker = cluster.fork({
         workerType: 'paymentProcessor'
     });
@@ -101,7 +157,17 @@ function spawnPaymentProcessor(){
 }
 
 function spawnApi(){
+    if (!config.api || !config.api.enabled) return;
 
+    var worker = cluster.fork({
+        workerType: 'api'
+    });
+    worker.on('exit', function(code, signal){
+        logger.error(logSystem, logSubsystem, 'API', 'API died, spawning replacement...');
+        setTimeout(function(){
+            spawnApi();
+        }, 2000);
+    });
 }
 
 function spawnCli(){
