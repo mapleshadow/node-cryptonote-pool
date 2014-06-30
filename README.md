@@ -68,10 +68,12 @@ Comes with lightweight example front-end script which uses the pool's AJAX API.
 
 #### Pools Using This Software
 
-* http://moneropool.com
-* http://monero.farm
-* http://extremehash.com
+* http://pool.cryptoescrow.eu
 * http://extremepool.org
+* http://xminingpool.com
+* http://xmr.poolto.be
+* http://moneropool.com
+* http://extremehash.com
 * http://hashinvest.net
 * http://moneropool.com.br
 * http://monerominers.net
@@ -79,7 +81,6 @@ Comes with lightweight example front-end script which uses the pool's AJAX API.
 * http://cryptonotepool.org.uk
 * http://minexmr.com
 * http://kippo.eu
-* http://pool.cryptoescrow.eu
 * http://coinmine.pl/xmr
 * http://moneropool.org
 
@@ -204,7 +205,7 @@ Explanation for each field:
         "targetTime": 100, //Try to get 1 share per this many seconds
         "retargetTime": 30, //Check to see if we should retarget every this many seconds
         "variancePercent": 30, //Allow time to very this % from target without retargeting
-        "maxJump": 1000 //Limit diff increase/decrease in a single retargetting
+        "maxJump": 100 //Limit diff percent increase/decrease in a single retargetting
     },
 
     /* Feature to trust share difficulties from miners which can
@@ -246,7 +247,8 @@ Explanation for each field:
     /* Block depth required for a block to unlocked/mature. Found in daemon source as
        the variable CRYPTONOTE_MINED_MONEY_UNLOCK_WINDOW */
     "depth": 60,
-    "poolFee": 2 //2% pool fee
+    "poolFee": 2, //2% pool fee
+    "devDonation": 0.1 //0.1% donation to send to pool dev - only works with Monero
 },
 
 /* AJAX API used for front-end website. */
@@ -301,45 +303,61 @@ The file `config.json` is used by default but a file can be specified using the 
 node init.js -config=config_backup.json
 ```
 
+This software contains four distinct modules:
+* `pool` - Which opens ports for miners to connect and processes shares
+* `api` - Used by the website to display network, pool and miners' data
+* `unlocker` - Processes block candidates and increases miners' balances when blocks are unlocked
+* `payments` - Sends out payments to miners according to their balances stored in redis
+
+
+By default, running the `init.js` script will start up all four modules. You can optionally have the script start
+only start a specific module by using the `-module=name` command argument, for example:
+
+```bash
+node init.js -module=api
+```
+
+[Example screenshot](http://i.imgur.com/SEgrI3b.png) of running the pool in single module mode with tmux.
+
 
 #### 5) Host the front-end
 
 Simply host the contents of the `website` directory on file server capable of serving simple static files.
 
-Edit the variables in `website/index.html` to use your pool's specific configuration. Variable explanations:
 
-```html
-<script>
+In the `website` directory copy `config_example.js` to `config.js` then edit the variables in
+the file to use your pool's specific configuration. Variable explanations:
 
-    /* Must point to the API setup in your config.json file. */
-    var api = "http://poolhost:8117";
+```javascript
 
-    /* Minimum units in a single coin, for Bytecoin its 100000000. */
-    var coinUnits = 1000000000000;
+/* Must point to the API setup in your config.json file. */
+var api = "http://poolhost:8117";
 
-    /* Pool server host to instruct your miners to point to.  */
-    var poolHost = "cryppit.com";
+/* Minimum units in a single coin, for Bytecoin its 100000000. */
+var coinUnits = 1000000000000;
 
-    /* IRC Server and room used for embedded KiwiIRC chat. */
-    var irc = "irc.freenode.net/#monero";
+/* Pool server host to instruct your miners to point to.  */
+var poolHost = "cryppit.com";
 
-    /* Contact email address. */
-    var email = "support@cryppit.com";
+/* IRC Server and room used for embedded KiwiIRC chat. */
+var irc = "irc.freenode.net/#monero";
 
-    /* Market stat display params from https://www.cryptonator.com/widget */
-    var cryptonatorWidget = ["XMR-BTC", "XMR-USD", "XMR-EUR", "XMR-GBP"];
+/* Contact email address. */
+var email = "support@cryppit.com";
 
-    /* Download link to cryptonote-easy-miner for Windows users. */
-    var easyminerDownload = "https://github.com/zone117x/cryptonote-easy-miner/releases/";
+/* Market stat display params from https://www.cryptonator.com/widget */
+var cryptonatorWidget = ["XMR-BTC", "XMR-USD", "XMR-EUR", "XMR-GBP"];
 
-    /* Download link to simplewallet for your configured coin. */
-    var simplewalletDownload = "http://bit.ly/monero-starter-pack";
+/* Download link to cryptonote-easy-miner for Windows users. */
+var easyminerDownload = "https://github.com/zone117x/cryptonote-easy-miner/releases/";
 
-    /* Used for front-end block links. For other coins it can be changed, for example with
-       Bytecoin you can use "https://minergate.com/blockchain/bcn/block/". */
-    var blockchainExplorer = "http://monerochain.info/block/";
+/* Download link to simplewallet for your configured coin. */
+var simplewalletDownload = "http://bit.ly/monero-starter-pack";
 
-</script>
+/* Used for front-end block links. For other coins it can be changed, for example with
+   Bytecoin you can use "https://minergate.com/blockchain/bcn/block/". */
+var blockchainExplorer = "http://monerochain.info/block/";
+
 ```
 
 #### 6) Customize your website

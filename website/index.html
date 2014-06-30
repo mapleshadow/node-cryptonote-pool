@@ -7,29 +7,6 @@
 
     <title>Cryptonote Mining Pool</title>
 
-    <script>
-
-
-        var api = "http://cryppit.com:8117";
-
-        var coinUnits = 1000000000000;
-
-        var poolHost = "cryppit.com";
-
-        var irc = "irc.freenode.net/#monero";
-
-        var email = "support@cryppit.com";
-
-        var cryptonatorWidget = ["XMR-BTC", "XMR-USD", "XMR-EUR", "XMR-GBP"];
-
-        var easyminerDownload = "https://github.com/zone117x/cryptonote-easy-miner/releases/";
-
-        var simplewalletDownload = "http://bit.ly/monero-starter-pack";
-
-        var blockchainExplorer = "http://monerochain.info/block/";
-
-
-    </script>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
@@ -40,8 +17,9 @@
 
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="additional.css" rel="stylesheet">
+    <script src="config.js"></script>
     <script src="additional.js"></script>
+    <link href="additional.css" rel="stylesheet">
 
     <style>
         #coinName{
@@ -73,7 +51,7 @@
         .stats > div > .fa {
             width: 25px;
         }
-        .stats > div > span{
+        .stats > div > span:first-of-type{
             font-weight: bold;
         }
         .marketFooter{
@@ -82,6 +60,10 @@
         }
         #networkLastReward{
             text-transform: uppercase;
+        }
+        #donationPercent{
+            font-size: 0.8em;
+            margin-left: 5px;
         }
         #lastHash{
             font-family: monospace;
@@ -281,7 +263,10 @@
 
                         $('#addressError').hide();
                         $('#yourAddressDisplay').text(address);
-                        $('#yourLastShare').timeago('update', new Date(parseInt(data.stats.lastShare) * 1000).toISOString());
+                        if (data.stats.lastShare)
+                            $('#yourLastShare').timeago('update', new Date(parseInt(data.stats.lastShare) * 1000).toISOString());
+                        else
+                            $('#yourLastShare').text('Never');
                         $('#yourHashrateHolder').text((data.stats.hashrate || '0 H') + '/sec');
                         $('#yourHashes').text(data.stats.hashes || '0');
                         $('#yourPaid').text(getReadableCoins(data.stats.paid) + ' ' + data.stats.symbol);
@@ -371,6 +356,12 @@
             $('#poolRoundHashes').text(stats.pool.roundHashes);
             $('#poolMiners').text(stats.pool.miners);
             $('#poolFee').text(stats.config.fee + '%');
+
+            if (stats.config.donation && stats.config.donation > 0)
+                $('#donationPercent').text(' + ' + stats.config.donation + '% development funding');
+            else
+                $('#donationPercent').text('');
+
             $('#blockSolvedTime').text(getReadableTime(stats.network.difficulty / stats.pool.hashrate));
 
             $('#miningPoolHost').text(poolHost);
@@ -641,7 +632,7 @@
                 <div><i class="fa fa-clock-o"></i> Block Found: <span id="poolLastBlockFound"></span></div>
                 <div><i class="fa fa-cloud-upload"></i> Round Hashes: <span id="poolRoundHashes"></span></div>
                 <div><i class="fa fa-users"></i> Connected Miners: <span id="poolMiners"></span></div>
-                <div><i class="fa fa-money"></i> Mining Fee: <span id="poolFee"></span></div>
+                <div><i class="fa fa-money"></i> Fee: <span id="poolFee"></span><span id="donationPercent"></span></div>
                 <div><i class="fa fa-history"></i> Block Found Every: <span id="blockSolvedTime"></span> (est.)</div>
             </div>
 

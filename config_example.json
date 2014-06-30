@@ -43,7 +43,7 @@
             "targetTime": 100,
             "retargetTime": 30,
             "variancePercent": 30,
-            "maxJump": 1000
+            "maxJump": 100
         },
         "shareTrust": {
             "enabled": true,
@@ -73,14 +73,16 @@
         "enabled": true,
         "interval": 30,
         "depth": 60,
-        "poolFee": 2
+        "poolFee": 2,
+        "devDonation": 0.1
     },
 
     "api": {
         "enabled": true,
         "hashrateWindow": 600,
-        "updateInterval": 3,
-        "port": 8117
+        "updateInterval": 5,
+        "port": 8117,
+        "password": "your_password"
     },
 
     "daemon": {
