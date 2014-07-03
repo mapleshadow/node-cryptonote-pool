@@ -1,0 +1,146 @@
+/* 用于存储在Redis的这么多硬币可以共享相同的Redis实例。 */
+"coin": "monero",
+
+/* 用于前端显示 */
+"symbol": "MRO",
+
+"logging": {
+
+    "files": {
+
+        /* Specifies the level of log output verbosity. This level and anything
+           more severe will be logged. Options are: info, warn, or error. */
+        "level": "info",
+
+        /* Directory where to write log files. */
+        "directory": "logs",
+
+        /* How often (in seconds) to append/flush data to the log files. */
+        "flushInterval": 5
+    },
+
+    "console": {
+        "level": "info",
+        /* Gives console output useful colors. If you direct that output to a log file
+           then disable this feature to avoid nasty characters in the file. */
+        "colors": true
+    }
+},
+
+/* 模块化矿池服务器 */
+"poolServer": {
+    "enabled": true,
+
+    /* Set to "auto" by default which will spawn one process/fork/worker for each CPU
+       core in your system. Each of these workers will run a separate instance of your
+       pool(s), and the kernel will load balance miners using these forks. Optionally,
+       the 'forks' field can be a number for how many forks will be spawned. */
+    "clusterForks": "auto",
+
+    /* 地址在块的奖励去了，矿工款项从何而来。 */
+    "poolAddress": "4AsBy39rpUMTmgTUARGq2bFQWhDhdQNekK5v4uaLU699NPAnx9CubEJ82AkvD5ScoAZNYRwBxybayainhyThHAZWCdKmPYn"
+
+    /* 轮询RPC守护程序为新的每块这么多毫秒。 */
+    "blockRefreshInterval": 1000,
+
+    /* 多少秒，直到我们认为矿工断开。 */
+    "minerTimeout": 900,
+
+    "ports": [
+        {
+            "port": 3333, //Port for mining apps to connect to
+            "difficulty": 100, //Initial difficulty miners are set to
+            "desc": "Low end hardware" //Description of port
+        },
+        {
+            "port": 5555,
+            "difficulty": 2000,
+            "desc": "Mid range hardware"
+        },
+        {
+            "port": 7777,
+            "difficulty": 10000,
+            "desc": "High end hardware"
+        }
+    ],
+
+    /* Variable difficulty is a feature that will automatically adjust difficulty for
+       individual miners based on their hashrate in order to lower networking and CPU
+       overhead. */
+    "varDiff": {
+        "minDiff": 2, //Minimum difficulty
+        "maxDiff": 100000,
+        "targetTime": 100, //Try to get 1 share per this many seconds
+        "retargetTime": 30, //Check to see if we should retarget every this many seconds
+        "variancePercent": 30, //Allow time to very this % from target without retargeting
+        "maxJump": 100 //Limit diff percent increase/decrease in a single retargetting
+    },
+
+    /* Feature to trust share difficulties from miners which can
+       significantly reduce CPU load. */
+    "shareTrust": {
+        "enabled": true,
+        "min": 10, //Minimum percent probability for share hashing
+        "stepDown": 3, //Increase trust probability % this much with each valid share
+        "threshold": 10, //Amount of valid shares required before trusting begins
+        "penalty": 30 //Upon breaking trust require this many valid share before trusting
+    },
+
+    /* If under low-diff share attack we can ban their IP to reduce system/network load. */
+    "banning": {
+        "enabled": true,
+        "time": 600, //多少秒，禁止工作者
+        "invalidPercent": 25, //什么％的股份无效，禁止触发
+        "checkThreshold": 30 //Perform check when this many shares have been submitted
+    }
+},
+
+/* Module that sends payments to miners according to their submitted shares. */
+"payments": {
+    "enabled": true,
+    "interval": 600, //how often to run in seconds
+    "maxAddresses": 50, //split up payments if sending to more than this many addresses
+    "transferFee": 5000000000, //fee to pay for each transaction
+    "minPayment": 100000000000, //miner balance required before sending payment
+    "denomination": 100000000000 //truncate to this precision and store remainder
+},
+
+/* Module that monitors the submitted block maturities and manages rounds. Confirmed
+   blocks mark the end of a round where workers' balances are increased in proportion
+   to their shares. */
+"blockUnlocker": {
+    "enabled": true,
+    "interval": 30, //多久检查模块状态以秒 
+
+    /* Block depth required for a block to unlocked/mature. Found in daemon source as
+       the variable CRYPTONOTE_MINED_MONEY_UNLOCK_WINDOW */
+    "depth": 60,
+    "poolFee": 2, //2% 矿池费用
+    "devDonation": 0.1 //0.1% 0.1％捐赠给发送到池dev的 - 只适用于Monero
+},
+
+/* 用于前端的网站AJAX API。 */
+"api": {
+    "enabled": true,
+    "hashrateWindow": 600, //how many second worth of shares used to estimate hash rate
+    "updateInterval": 3, //gather stats and broadcast every this many seconds
+    "port": 8117
+},
+
+/* 硬币守护程序连接的详细信息。 */
+"daemon": {
+    "host": "127.0.0.1",
+    "port": 18081
+},
+
+/* 钱包守护程序连接的详细信息。 */
+"wallet": {
+    "host": "127.0.0.1",
+    "port": 8082
+},
+
+/* Redis的连接进入。 */
+"redis": {
+    "host": "127.0.0.1",
+    "port": 6379
+}
