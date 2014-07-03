@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
 
-    <title>Cryptonote Mining Pool</title>
+    <title>枫影 Cryptonote 算法挖矿矿池</title>
 
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -623,16 +623,17 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index_cn.html"><span id="coinName"></span> Mining Pool > 简体中文</a>
+            <a class="navbar-brand" href="index.html"><span id="coinName"></span> 枫影矿池 > To English</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a class="hot_link" data-page="page_home" href="#"><i class="fa fa-home"></i> Home</a></li>
-                <li><a class="hot_link" data-page="page_pool_blocks" href="#pool_blocks"><i class="fa fa-cubes"></i> Pool Blocks</a></li>
-                <li><a class="hot_link" data-page="page_getting_started" href="#getting_started"><i class="fa fa-rocket"></i> Getting Started</a></li>
-                <li><a class="hot_link" data-page="page_community" href="#community"><i class="fa fa-comments"></i> Community</a></li>
+                <li class="active"><a class="hot_link" data-page="page_home" href="#"><i class="fa fa-home"></i> 首页</a></li>
+                <li><a class="hot_link" data-page="page_pool_blocks" href="#pool_blocks"><i class="fa fa-cubes"></i> 矿池区块</a></li>
+                <li><a class="hot_link" data-page="page_getting_started" href="#getting_started"><i class="fa fa-rocket"></i> 新手入门</a></li>
+                <li><a class="hot_link" data-page="page_community" href="#community"><i class="fa fa-comments"></i> 社区</a></li>
+                <li><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=8d7425fc172a79ce2ee2e778c62326d64ff9c3bd8fc603933950301d782e474a"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Jane-N-X11-CryptoNote算法" title="Jane-N-X11-CryptoNote算法"></a></li>
             </ul>
-            <div id="stats_updated">Stats Updated &nbsp;<i class="fa fa-bolt"></i></div>
+            <div id="stats_updated">统计更新 &nbsp;<i class="fa fa-bolt"></i></div>
         </div>
 
     </div>
@@ -646,44 +647,44 @@
 
         <div class="row">
             <div class="col-md-4 stats">
-                <h3>Network</h3>
-                <div><i class="fa fa-tachometer"></i> Hash Rate: <span id="networkHashrate"></span></div>
-                <div><i class="fa fa-clock-o"></i> Block Found: <span id="networkLastBlockFound"></span></div>
-                <div><i class="fa fa-unlock-alt"></i> Difficulty: <span id="networkDifficulty"></span></div>
-                <div><i class="fa fa-bars"></i> Blockchain Height: <span id="blockchainHeight"></span></div>
-                <div><i class="fa fa-money"></i> Last Reward: <span id="networkLastReward"></span></div>
-                <div><i class="fa fa-paw"></i> Last Hash: <a id="lastHash" target="_blank"></a></div>
+                <h3>全网</h3>
+                <div><i class="fa fa-tachometer"></i> 算力: <span id="networkHashrate"></span></div>
+                <div><i class="fa fa-clock-o"></i> 距离上个区块: <span id="networkLastBlockFound"></span></div>
+                <div><i class="fa fa-unlock-alt"></i> 当前难度 <span id="networkDifficulty"></span></div>
+                <div><i class="fa fa-bars"></i> 上个区块号: <span id="blockchainHeight"></span></div>
+                <div><i class="fa fa-money"></i> 上个区块币量: <span id="networkLastReward"></span></div>
+                <div><i class="fa fa-paw"></i> 最后哈希值: <a id="lastHash" target="_blank"></a></div>
             </div>
 
             <div class="col-md-4 stats">
-                <h3>Pool</h3>
-                <div><i class="fa fa-tachometer"></i> Hash Rate: <span id="poolHashrate"></span></div>
-                <div><i class="fa fa-clock-o"></i> Block Found: <span id="poolLastBlockFound"></span></div>
-                <div><i class="fa fa-cloud-upload"></i> Round Hashes: <span id="poolRoundHashes"></span></div>
-                <div><i class="fa fa-users"></i> Connected Miners: <span id="poolMiners"></span></div>
-                <div><i class="fa fa-money"></i> Fee: <span id="poolFee"></span><span id="donationPercent"></span></div>
-                <div><i class="fa fa-history"></i> Block Found Every: <span id="blockSolvedTime"></span> (est.)</div>
+                <h3>本地矿池</h3>
+                <div><i class="fa fa-tachometer"></i> 算力: <span id="poolHashrate"></span></div>
+                <div><i class="fa fa-clock-o"></i> 距离上个区块: <span id="poolLastBlockFound"></span></div>
+                <div><i class="fa fa-cloud-upload"></i> 本轮哈希: <span id="poolRoundHashes"></span></div>
+                <div><i class="fa fa-users"></i> 在线矿工: <span id="poolMiners"></span></div>
+                <div><i class="fa fa-money"></i> 费率: <span id="poolFee"></span><span id="donationPercent"></span></div>
+                <div><i class="fa fa-history"></i> 出块时间: <span id="blockSolvedTime"></span> (est.)</div>
             </div>
 
             <div class="col-md-4 stats">
-                <h3 id="marketHeader">Market</h3>
-                <div class="marketFooter">Updated: <span id="marketLastUpdated"></span></div>
+                <h3 id="marketHeader">交易市场</h3>
+                <div class="marketFooter">更新: <span id="marketLastUpdated"></span></div>
                 <div class="marketFooter">Powered by <a href="https://www.cryptonator.com/">Cryptonator</a></div>
             </div>
         </div>
 
         <div class="stats">
-            <h3>Your Stats</h3>
-            <label for="yourStatsInput"><i class="fa fa-key"></i> Address</label><br>
+            <h3>您的统计</h3>
+            <label for="yourStatsInput"><i class="fa fa-key"></i> 钱包地址</label><br>
             <input class="form-control" id="yourStatsInput" type="text">
-            <button class="btn btn-default" id="lookUp"><i class="fa fa-search"></i> Lookup</button>
+            <button class="btn btn-default" id="lookUp"><i class="fa fa-search"></i> 查看</button>
             <div id="addressError"></div>
-            <div class="yourStats"><i class="fa fa-key"></i> Address: <span id="yourAddressDisplay"></span></div>
-            <div class="yourStats"><i class="fa fa-bank"></i> Pending Balance: <span id="yourPendingBalance"></span></div>
-            <div class="yourStats"><i class="fa fa-money"></i> Total Paid: <span id="yourPaid"></span></div>
+            <div class="yourStats"><i class="fa fa-key"></i> 钱包地址: <span id="yourAddressDisplay"></span></div>
+            <div class="yourStats"><i class="fa fa-bank"></i> 待处理余额: <span id="yourPendingBalance"></span></div>
+            <div class="yourStats"><i class="fa fa-money"></i> 总额（元）: <span id="yourPaid"></span></div>
             <div class="yourStats"><i class="fa fa-clock-o"></i> Last Share Submitted: <span id="yourLastShare"></span></div>
-            <div class="yourStats"><i class="fa fa-tachometer"></i> Hash Rate: <span id="yourHashrateHolder"></span></div>
-            <div class="yourStats"><i class="fa fa-cloud-upload"></i> Total Hashes Submitted: <span id="yourHashes"></span></div>
+            <div class="yourStats"><i class="fa fa-tachometer"></i> 算力: <span id="yourHashrateHolder"></span></div>
+            <div class="yourStats"><i class="fa fa-cloud-upload"></i> 提交的总算力: <span id="yourHashes"></span></div>
         </div>
 
     </div>
@@ -691,11 +692,11 @@
     <div class="page" id="page_pool_blocks">
         <div class="blocksStatHolder">
             <h4>Block Candidates</h4>
-            <span><span id="blocksCountPending"></span> Maturing</span>
+            <span><span id="blocksCountPending"></span> 成熟</span>
             <span class="bg-success"><span id="blocksCountUnlocked"></span> Unlocked</span>
-            <span class="bg-danger"><span id="blocksCountOrphaned"></span> Orphaned</span>
-            <span class="bg-info">Maturity requires <span id="blocksMaturityCount"></span> blocks</span>
-            <span><span id="averageBlockLuck"></span> Luck Average</span>
+            <span class="bg-danger"><span id="blocksCountOrphaned"></span> 孤立</span>
+            <span class="bg-info">成熟需要 <span id="blocksMaturityCount"></span> 块</span>
+            <span><span id="averageBlockLuck"></span> 平均幸运值</span>
         </div>
         <hr>
         <div class="table-responsive">
@@ -703,11 +704,11 @@
                 <thead>
                 <tr>
                     <th><i class="fa fa-bars"></i> Height</th>
-                    <th title="How many more blocks network must mine before this block is matured"><i class="fa fa-link"></i> Maturity</th>
-                    <th><i class="fa fa-unlock-alt"></i> Difficulty</th>
-                    <th><i class="fa fa-paw"></i> Block Hash</th>
-                    <th><i class="fa fa-clock-o"></i> Time Found</th>
-                    <th><i class="fa fa-star-half-o"></i> Luck</th>
+                    <th title="How many more blocks network must mine before this block is matured"><i class="fa fa-link"></i> 成熟</th>
+                    <th><i class="fa fa-unlock-alt"></i> 难度</th>
+                    <th><i class="fa fa-paw"></i> 区块哈希值</th>
+                    <th><i class="fa fa-clock-o"></i> 暴块时间</th>
+                    <th><i class="fa fa-star-half-o"></i> 幸运值/效率</th>
                 </tr>
                 </thead>
                 <tbody id="blocks_rows">
@@ -718,27 +719,27 @@
     </div>
 
     <div class="page" id="page_getting_started">
-        <h1>Getting Started</h1>
+        <h1>新手入门</h1>
 
         <hr>
 
         <div class="stats">
             <h4>Mining Host</h4>
-            <div><i class="fa fa-cloud"></i> Pool Address: <span id="miningPoolHost"></span></div>
+            <div><i class="fa fa-cloud"></i> 矿池地址: <span id="miningPoolHost"></span></div>
         </div>
 
-        <h4>Mining Ports</h4>
+        <h4>挖矿端口</h4>
         <div id="miningPorts" class="row">
             <div class="stats">
-                <div><i class="fa fa-tachometer"></i> Port: <span class="miningPort"></span></div>
-                <div><i class="fa fa-unlock-alt"></i> Starting Difficulty: <span class="miningPortDiff"></span></div>
-                <div><i class="fa fa-question"></i> Description: <span class="miningPortDesc"></span></div>
+                <div><i class="fa fa-tachometer"></i> 端口: <span class="miningPort"></span></div>
+                <div><i class="fa fa-unlock-alt"></i> 开始难度: <span class="miningPortDiff"></span></div>
+                <div><i class="fa fa-question"></i> 描述: <span class="miningPortDesc"></span></div>
             </div>
         </div>
 
         <hr>
 
-        <h4>For <i class="fa fa-windows"></i> Windows users</h4>
+        <h4>For <i class="fa fa-windows"></i> Windows 用户</h4>
         <br>
         <p class="getting_started_windows">
             You can <a class="btn btn-default btn-sm" target="_blank" id="easyminer_link"><i class="fa fa-download"></i> Download</a> and run <a target="_blank" href="https://github.com/zone117x/cryptonote-easy-miner">cryptonote-easy-miner</a> <i class="fa fa-github"></i> which will automatically generate your wallet address
