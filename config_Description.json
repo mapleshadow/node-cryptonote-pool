@@ -1,8 +1,9 @@
+{
 /* 用于存储在Redis的这么多硬币可以共享相同的Redis实例。 */
 "coin": "monero",
 
 /* 用于前端显示 */
-"symbol": "MRO",
+"symbol": "XMR",
 
 "logging": {
 
@@ -124,8 +125,10 @@
 "api": {
     "enabled": true,
     "hashrateWindow": 600, //how many second worth of shares used to estimate hash rate
-    "updateInterval": 3, //gather stats and broadcast every this many seconds
-    "port": 8117
+    "updateInterval": 5, //gather stats and broadcast every this many seconds
+        "port": 8117,
+        "blocks": 30,
+        "password": "your_password"
 },
 
 /* 硬币守护程序连接的详细信息。 */
@@ -144,4 +147,5 @@
 "redis": {
     "host": "127.0.0.1",
     "port": 6379
+    }
 }
