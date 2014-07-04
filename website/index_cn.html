@@ -662,8 +662,8 @@
                 <div><i class="fa fa-clock-o"></i> 距离上个区块: <span id="poolLastBlockFound"></span></div>
                 <div><i class="fa fa-cloud-upload"></i> 本轮哈希: <span id="poolRoundHashes"></span></div>
                 <div><i class="fa fa-users"></i> 在线矿工: <span id="poolMiners"></span></div>
-                <div><i class="fa fa-money"></i> 费率: <span id="poolFee"></span><span id="donationPercent"></span></div>
-                <div><i class="fa fa-history"></i> 出块时间: <span id="blockSolvedTime"></span> (est.)</div>
+                <div><i class="fa fa-money"></i> 矿池费率: <span id="poolFee"></span><span id="donationPercent"></span></div>
+                <div><i class="fa fa-history"></i> 出块时间: <span id="blockSolvedTime"></span> (预计)</div>
             </div>
 
             <div class="col-md-4 stats">
@@ -691,24 +691,24 @@
 
     <div class="page" id="page_pool_blocks">
         <div class="blocksStatHolder">
-            <h4>Block Candidates</h4>
-            <span><span id="blocksCountPending"></span> 成熟</span>
-            <span class="bg-success"><span id="blocksCountUnlocked"></span> Unlocked</span>
-            <span class="bg-danger"><span id="blocksCountOrphaned"></span> 孤立</span>
-            <span class="bg-info">成熟需要 <span id="blocksMaturityCount"></span> 块</span>
-            <span><span id="averageBlockLuck"></span> 平均幸运值</span>
+            <h4>区块统计</h4>
+            <span><span id="blocksCountPending"></span> 待成熟</span>
+            <span class="bg-success"><span id="blocksCountUnlocked"></span> 已成熟</span>
+            <span class="bg-danger"><span id="blocksCountOrphaned"></span> 孤立/无效块</span>
+            <span class="bg-info">成熟需要 <span id="blocksMaturityCount"></span> 个块</span>
+            <span><span id="averageBlockLuck"></span> 平均幸运度（越高越好）</span>
         </div>
         <hr>
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th><i class="fa fa-bars"></i> Height</th>
+                    <th><i class="fa fa-bars"></i> 区块号</th>
                     <th title="How many more blocks network must mine before this block is matured"><i class="fa fa-link"></i> 成熟</th>
                     <th><i class="fa fa-unlock-alt"></i> 难度</th>
                     <th><i class="fa fa-paw"></i> 区块哈希值</th>
                     <th><i class="fa fa-clock-o"></i> 暴块时间</th>
-                    <th><i class="fa fa-star-half-o"></i> 幸运值/效率</th>
+                    <th><i class="fa fa-star-half-o"></i> 幸运度/效率</th>
                 </tr>
                 </thead>
                 <tbody id="blocks_rows">
