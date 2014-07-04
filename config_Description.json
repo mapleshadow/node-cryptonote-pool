@@ -68,12 +68,12 @@
        individual miners based on their hashrate in order to lower networking and CPU
        overhead. */
     "varDiff": {
-        "minDiff": 2, //Minimum difficulty
-        "maxDiff": 100000,
-        "targetTime": 100, //Try to get 1 share per this many seconds
-        "retargetTime": 30, //Check to see if we should retarget every this many seconds
-        "variancePercent": 30, //Allow time to very this % from target without retargeting
-        "maxJump": 100 //Limit diff percent increase/decrease in a single retargetting
+        "minDiff": 2, //最小难度
+        "maxDiff": 100000,//最大难度
+        "targetTime": 100, //Try to get 1 share per this many seconds试着让每多少秒1股
+        "retargetTime": 30, //Check to see if we should retarget every this many seconds检查我们是否应该重新定位每隔多少秒
+        "variancePercent": 30, //Allow time to very this % from target without retargeting允许时间极本％的目标没有重定向
+        "maxJump": 100 //Limit diff percent increase/decrease in a single retargetting限制差异百分比增加/减少一个重定目标
     },
 
     /* Feature to trust share difficulties from miners which can
@@ -95,13 +95,13 @@
     }
 },
 
-/* Module that sends payments to miners according to their submitted shares. */
+/* 模块发送支付给矿工根据其提交的股份。 */
 "payments": {
     "enabled": true,
-    "interval": 600, //how often to run in seconds
-    "maxAddresses": 50, //split up payments if sending to more than this many addresses
-    "transferFee": 5000000000, //fee to pay for each transaction
-    "minPayment": 100000000000, //miner balance required before sending payment
+    "interval": 600, //多少秒轮询执行一次分币任务
+    "maxAddresses": 50, //最大可拆分钱包地址数量
+    "transferFee": 5000000000, //手续费，支付给每一笔分币操作，计量单位12位，该值实际是0.05
+    "minPayment": 100000000000, //最小支付额，计量单位12位，该值实际是 1，就是一个币
     "denomination": 100000000000 //truncate to this precision and store remainder
 },
 
@@ -112,7 +112,8 @@
     "enabled": true,
     "interval": 30, //多久检查模块状态以秒 
 
-    /* Block depth required for a block to unlocked/mature. Found in daemon source as
+    /* 所需的块解锁/成熟区块的深度。在后台程序源如发现变量，就是区块需要多少秒成熟的值
+       Block depth required for a block to unlocked/mature. Found in daemon source as
        the variable CRYPTONOTE_MINED_MONEY_UNLOCK_WINDOW */
     "depth": 60,
     "poolFee": 2, //2% 矿池费用
