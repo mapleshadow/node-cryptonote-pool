@@ -1,4 +1,4 @@
-var api = "http://cryppit.com:8117";
+﻿var api = "http://cryppit.com:8117";
 
 var coinUnits = 1000000000000;
 
@@ -12,6 +12,6 @@ var cryptonatorWidget = ["XMR-BTC", "XMR-USD", "XMR-EUR", "XMR-GBP"];
 
 var easyminerDownload = "https://github.com/zone117x/cryptonote-easy-miner/releases/";
 
-var simplewalletDownload = "http://bit.ly/monero-starter-pack";
+var simplewalletDownload = 'http://monero.cc/getting-started';
 
 var blockchainExplorer = "http://monerochain.info/block/";
