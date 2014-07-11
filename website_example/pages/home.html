@@ -1,4 +1,4 @@
-﻿<style>
+<style>
     .marketFooter{
         font-size: 10px;
         opacity: 0.6;
@@ -149,6 +149,25 @@
     <div class="yourStats"><i class="fa fa-tachometer"></i> Hash Rate: <span id="yourHashrateHolder"></span></div>
     <div class="yourStats"><i class="fa fa-cloud-upload"></i> Total Hashes Submitted: <span id="yourHashes"></span></div>
 </div>
+
+
+<div class="submitarea">
+    <button class="form-control" id="getPayouts"><i class="fa fa-search"></i>Get Detail Payout</button>
+</div>
+    <div class="table-responsive" id="Payouts">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th><i class="fa fa-clock-o"></i> Time of Payout</th>
+                    <th><i class="fa fa-cube"></i> Amount</th>
+                    <th><i class="fa fa-cube"></i> Transaction ID</th>
+                </tr>
+                <tr><td colspan="3"></td></tr>
+            </thead>
+            <tbody id="user_payout_rows">
+            </tbody>
+        </table>
+    </div>
 
 <script>
 
@@ -400,5 +419,71 @@
             $('#lookUp').click();
     });
 
+/* 以下内容为钱包交易记录查询JS */
+var addressEventSource2;
+var getpayoutsBtnHtml = $('getPayouts').html();
+var coinDecimals = coinUnits.toString().length - 1;
+function getReadableCoins(coins){
+    return (parseInt(coins || 0) / coinUnits).toFixed(coinDecimals);
+}
+
+function addPayouts(){
+      var address = $('#yourStatsInput').val().trim();
+      if (!address){
+          $('#yourStatsInput').focus();
+          return;
+      }
+     $(this).html('<i class="fa fa-refresh fa-spin"></i> Searching...');
+      function fetchPayouts(longpoll){
+          addressEventSource2 = $.ajax({
+              url: api + '/get_payouts',
+              data: { address: address, longpoll: longpoll},
+              dataType: 'json', cache: 'false',
+              success: function(data){
+                  $('#getPayouts').html(getpayoutsBtnHtml);
+                  if (!data.payouts){
+                      return;
+                  }
+                  var rows = '';
+                  var payouts = [];
+                  for (var i = 0; i < data.payouts.length; i++){
+                      var payoutData = data.payouts[i].split(':');
+                      payoutData[0] = parseInt(payoutData[0]);
+                      payoutData[1] = parseInt(payoutData[1]);
+                      payouts.push(payoutData);
+                  }
+                  payouts.sort(function(a, b){
+                       return b[0] - a[0];
+                  });
+                  var formatDate = function(time){
+                      if (!time) return '';
+                      return new Date(parseInt(time) * 1000).toLocaleString();
+                  };
+              for (var i = 0; i < payouts.length; i++){
+                        var payout = payouts[i];
+                        var tx = payout[2].replace(/[\<\>]/g, "");
+                        rows += ('<tr>' +
+                      '<td>' + formatDate(payout[0]) + '</td>' +
+                      '<td>' + getReadableCoins(payout[1]) + '</td>' +
+                      '<td><a target="_blank" href="http://monerochain.info/tx/' + tx + '">&lt;' + tx  + '&gt;</a></td>' +
+                      '</tr>');
+            }
+                  $('#user_payout_rows').empty().append(rows);
+                  //$('#getPayouts').hide();
+                  $('#getPayouts').empty().append('<i class="fa fa-search"></i>Refresh Detail Payout');
+              },
+              error: function(e){
+                  $('#getPayouts').empty().append('<i class="fa fa-search"></i>Refresh Detail Payout');
+                  if (e.statusText === 'abort') return;
+                  $('#getPayouts').empty().append('<i class="fa fa-search"></i>Refresh Detail Payout');
+                  $('#addressError').text('Connection error').show();
+              }
+          });
+      }
+      fetchPayouts();
+  }
+  
+$('#getPayouts').click(addPayouts());
+/* 以上内容为钱包交易记录查询JS */
 
 </script>
