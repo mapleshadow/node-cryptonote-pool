@@ -232,7 +232,7 @@ Explanation for each field:
     "enabled": true,
     "interval": 600, //how often to run in seconds
     "maxAddresses": 50, //split up payments if sending to more than this many addresses/多少个地址一起支付
-    "mixin": 3, //number of transactions yours is indistinguishable from/每个地址多少个币一起支付
+    "mixin": 3, //number of transactions yours is indistinguishable from/出错的重试次数？
     "transferFee": 5000000000, //fee to pay for each transaction
     "minPayment": 100000000000, //miner balance required before sending payment
     "denomination": 100000000000 //truncate to this precision and store remainder
