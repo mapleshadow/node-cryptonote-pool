@@ -185,10 +185,13 @@
         update: function(){
 
             $('#networkLastBlockFound').timeago('update', new Date(lastStats.network.timestamp * 1000).toISOString());
-
-            updateText('networkHashrate', getReadableHashRateString(lastStats.network.difficulty / 60) + '/sec');
             //8位数的币，全网算力是120数值
-            //updateText('networkHashrate', getReadableHashRateString(lastStats.network.difficulty / 240) + '/sec');
+            if (coinUnits / 1000000000000 == 1) {
+                updateText('networkHashrate', getReadableHashRateString(lastStats.network.difficulty / 60) + '/sec');
+            }
+            else {
+                updateText('networkHashrate', getReadableHashRateString(lastStats.network.difficulty / 240) + '/sec');
+            }
             updateText('networkDifficulty', lastStats.network.difficulty.toString());
             updateText('blockchainHeight', lastStats.network.height.toString());
             updateText('networkLastReward', getReadableCoins(lastStats.network.reward, 4));
@@ -309,9 +312,13 @@
         try {
             var rateUnit = Math.pow(1024,parseInt($('#calcHashUnit').data('mul')));
             var inp2 = parseFloat($('#calcHashRate').val()) * rateUnit;
-            var resl = 16 / ((lastStats.network.difficulty / inp2) / 86400);
-            //8位数货币的计算器单位
-            //var resl = 160000 / ((lastStats.network.difficulty / inp2) / 86400);
+            //8位数的币，全网算力是120数值
+            if (coinUnits / 1000000000000 == 1) {
+                var resl = 16 / ((lastStats.network.difficulty / inp2) / 86400);
+            }
+            else {
+                var resl = 160000 / ((lastStats.network.difficulty / inp2) / 86400);
+            }
             if (!isNaN(resl)) {
                 updateText('calcHashAmount', (Math.round(resl * 100) / 100).toString());
                 return;
