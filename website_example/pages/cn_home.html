@@ -185,7 +185,7 @@
 
             $('#networkLastBlockFound').timeago('update', new Date(lastStats.network.timestamp * 1000).toISOString());
 
-            //8位数的币，全网算力是120数值
+            //8位数的币，全网算力是240数值
             if (coinUnits / 1000000000000 == 1) {
                 updateText('networkHashrate', getReadableHashRateString(lastStats.network.difficulty / 60) + '/sec');
             }
@@ -312,7 +312,7 @@
         try {
             var rateUnit = Math.pow(1024,parseInt($('#calcHashUnit').data('mul')));
             var inp2 = parseFloat($('#calcHashRate').val()) * rateUnit;
-            //8位数的币，全网算力是120数值
+            //8位数的币，全网算力是240数值
             if (coinUnits / 1000000000000 == 1) {
                 var resl = 16 / ((lastStats.network.difficulty / inp2) / 86400);
             }
