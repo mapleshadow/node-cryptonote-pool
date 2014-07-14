@@ -11,7 +11,7 @@ var coinResl = 16;
 
 var irc = "irc.freenode.net/#monero";
 
-var email = "support@cryppit.com";
+var email = "mapleshadow@gmail.com";
 
 var cryptonatorWidget = ["XMR-BTC", "XMR-LTC", "XMR-USD", "XMR-EUR", "XMR-CNY"];
 
