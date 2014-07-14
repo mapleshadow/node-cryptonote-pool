@@ -1,8 +1,8 @@
-var api = "http://cryppit.com:8117";
+var api = "http://nomp.freeyy.me:8117";
 
 var coinUnits = 1000000000000;
 
-var poolHost = "cryppit.com";
+var poolHost = "nomp.freeyy.me";
 //币全网难度计算取值
 var coinNetworkDiff = 60;
 //币收益计算取值
