@@ -7,6 +7,7 @@ var poolHost = "cryppit.com";
 var coinNetworkDiff = 60;
 //币收益计算取值
 var coinResl = 16;
+//12位数为以上默认值、如果是8位数，一般取值为 240和160000
 
 var irc = "irc.freenode.net/#monero";
 
