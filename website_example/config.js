@@ -7,13 +7,13 @@ var poolHost = "nomp.freeyy.me";
 var coinNetworkDiff = 60;
 //币收益计算取值
 var coinResl = 16;
-//12位数为以上默认值、如果是8位数，一般取值为 240和160000
+//12位数为以上默认值60和16、如果是8位数，一般取值为 240和160000
 
 var irc = "irc.freenode.net/#monero";
 
 var email = "support@cryppit.com";
 
-var cryptonatorWidget = ["XMR-BTC", "XMR-USD", "XMR-EUR", "XMR-GBP"];
+var cryptonatorWidget = ["XMR-BTC", "XMR-LTC", "XMR-USD", "XMR-EUR", "XMR-CNY"];
 
 var easyminerDownload = "https://github.com/zone117x/cryptonote-easy-miner/releases/";
 
