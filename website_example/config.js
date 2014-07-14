@@ -1,8 +1,12 @@
-﻿var api = "http://cryppit.com:8117";
+var api = "http://cryppit.com:8117";
 
 var coinUnits = 1000000000000;
 
 var poolHost = "cryppit.com";
+//币全网难度计算取值
+var coinNetworkDiff = 60;
+//币收益计算取值
+var coinResl = 16;
 
 var irc = "irc.freenode.net/#monero";
 
