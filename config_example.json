@@ -23,18 +23,18 @@
         "ports": [
             {
                 "port": 3333,
-                "difficulty": 100,
-                "desc": "Low end hardware"
+                "difficulty": 1000,
+                "desc": "低端CPU和显卡:1KH/S选用"
             },
             {
                 "port": 5555,
-                "difficulty": 2000,
-                "desc": "Mid range hardware"
+                "difficulty": 4000,
+                "desc": "高端CPU和显卡:1.5KH/S以上选用"
             },
             {
                 "port": 7777,
                 "difficulty": 10000,
-                "desc": "High end hardware"
+                "desc": "超高端CPU和显卡:4KH/S以上选用"
             },
             {
                 "port": 8888,
