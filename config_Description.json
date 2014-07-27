@@ -71,9 +71,10 @@
     "varDiff": {
         "minDiff": 2, //最小难度
         "maxDiff": 10000,//最大难度 BBR：10000000
-        "targetTime": 100, //Try to get 1 share per this many seconds目标每股时间（即试图让每多少秒1股）
+        "targetTime": 100, //Try to get 1 share per this many seconds目标每股时间（即试图让每多少秒1股）可改小，传说提高效率？
         "retargetTime": 30, //Check to see if we should retarget every this many seconds检查我们是否应该重新定位每隔多少秒 多久矿工难度，如果适当改变
         "variancePercent": 30, //Allow time to very this % from target without retargeting允许时间极本％的目标没有重定向 允许平均时间极本％的目标没有重定目标
+	//以上三个值，不知道能不能用ST的值来代替，或许效率更好？
         "maxJump": 100 //Limit diff percent increase/decrease in a single retargetting限制差异百分比增加/减少一个重定目标
     },
 
