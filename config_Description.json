@@ -70,7 +70,7 @@
        overhead. */
     "varDiff": {
         "minDiff": 2, //最小难度
-        "maxDiff": 100000,//最大难度 BBR：10000000
+        "maxDiff": 10000,//最大难度 BBR：10000000
         "targetTime": 100, //Try to get 1 share per this many seconds目标每股时间（即试图让每多少秒1股）
         "retargetTime": 30, //Check to see if we should retarget every this many seconds检查我们是否应该重新定位每隔多少秒 多久矿工难度，如果适当改变
         "variancePercent": 30, //Allow time to very this % from target without retargeting允许时间极本％的目标没有重定向 允许平均时间极本％的目标没有重定目标
