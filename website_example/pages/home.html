@@ -211,6 +211,8 @@
             );
 
             updateText('poolHashrate', getReadableHashRateString(lastStats.pool.hashrate) + '/sec');
+			//该值可以改算力显示，伪算力，如以下为10倍
+            //updateText('poolHashrate', getReadableHashRateString(lastStats.pool.hashrate * 10) + '/sec');
 
             if (lastStats.pool.lastBlockFound){
                 var d = new Date(parseInt(lastStats.pool.lastBlockFound)).toISOString();
