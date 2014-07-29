@@ -45,7 +45,7 @@
         ],
         "varDiff": {
             "minDiff": 2,
-            "maxDiff": 10000,
+            "maxDiff": 80000,
             "targetTime": 100,
             "retargetTime": 30,
             "variancePercent": 30,
@@ -88,7 +88,7 @@
     "api": {
         "enabled": true,
         "hashrateWindow": 600,
-        "updateInterval": 5,
+        "updateInterval": 30,
         "port": 8117,
         "blocks": 30,
         "payments": 30,

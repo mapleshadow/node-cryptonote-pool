@@ -70,7 +70,7 @@
        overhead. */
     "varDiff": {
         "minDiff": 2, //最小难度
-        "maxDiff": 10000,//最大难度 BBR：10000000
+        "maxDiff": 80000,//最大难度 BBR：10000000
         "targetTime": 100, //Try to get 1 share per this many seconds目标每股时间（即试图让每多少秒1股）可改小，传说提高效率？
         "retargetTime": 30, //Check to see if we should retarget every this many seconds检查我们是否应该重新定位每隔多少秒 多久矿工难度，如果适当改变
         "variancePercent": 30, //Allow time to very this % from target without retargeting允许时间极本％的目标没有重定向 允许平均时间极本％的目标没有重定目标
@@ -102,7 +102,7 @@
     "enabled": true,
     "interval": 600, //多少秒轮询执行一次分币任务
     "maxAddresses": 50, //最大可拆分钱包地址数量
-        "mixin": 3,
+    "mixin": 3,
     "transferFee": 5000000000, //手续费，支付给每一笔分币操作，计量单位12位，该值实际是0.005，最低为0.0005，小数点12位
     "minPayment": 100000000000, //最小支付额，计量单位小数点12位，该值实际是 0.1
     "denomination": 100000000000 //truncate to this precision and store remainder
@@ -127,7 +127,7 @@
 "api": {
     "enabled": true,
     "hashrateWindow": 600, //how many second worth of shares used to estimate hash rate
-    "updateInterval": 5, //gather stats and broadcast every this many seconds
+    "updateInterval": 30, //gather stats and broadcast every this many seconds
         "port": 8117,
         "blocks": 30,
         "password": "your_password"
