@@ -9,7 +9,7 @@ var coinNetworkDiff = 60;
 var coinResl = 16;
 //12位数为以上默认值60和16、如果是8位数，一般取值为 240和160000
 
-var irc = "irc.freenode.net/#monero";
+var irc = "irc.freenode.net/#monero-pools";
 
 var email = "mapleshadow@gmail.com";
 
