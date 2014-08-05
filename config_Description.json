@@ -103,6 +103,7 @@
     "interval": 600, //多少秒轮询执行一次分币任务
     "maxAddresses": 50, //最大可拆分钱包地址数量
     "mixin": 3,
+    "maxTransactionAmount": 0, //split transactions by this amount(to prevent "too big transaction" error)/拆分交易，这一数额（以防止“大交易”的错误）
     "transferFee": 5000000000, //手续费，支付给每一笔分币操作，计量单位12位，该值实际是0.005，最低为0.0005，小数点12位
     "minPayment": 100000000000, //最小支付额，计量单位小数点12位，该值实际是 0.1
     "denomination": 100000000000 //truncate to this precision and store remainder
